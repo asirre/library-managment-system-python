@@ -45,8 +45,9 @@ class BooksDB:
         self.cur.execute("DELETE FROM books WHERE book_id=?", (id,))
         self.conn.commit()
 
-    def search(self,year_of_relase,author_id,genre='',title=''):
-        self.cur.execute("SELECT * FROM books WHERE title=? OR year_of_relase = ? OR author_id = ? OR genre = ?")
+    def search(self,author_name='', author_surname='',genre='',title=''):
+        self.cur.execute("SELECT id,title,year_of_relase, author_name, author_surname, genre FROM books WHERE (title=? OR author_name = ? OR author_surname = ? OR genre = ?) AND availbility = 1",
+                         (author_name, author_surname,genre,title,))
         return self.cur.fetchall()
 
     def __del__(self):
@@ -68,9 +69,9 @@ class UsersDB:
         self.conn.commit()
 
 
-    def fetch(self):
-        self.cur.execute("SELECT * from users")
-        return self.cur.fetchall()
+    def fetch(self,id):
+        self.cur.execute("SELECT name from users WHERE id =?",(id,))
+        return self.cur.fetchone()
 
     def insert(self, name,surname,city,email,login,password):
         self.cur.execute("INSERT INTO users (name,surname,city,email,login,password)"
@@ -111,7 +112,7 @@ class DatesDB:
     def fetch_users(self,userid):
         self.cur.execute("SELECT book_id, books.title, borrowed, due_to_return FROM borrowings JOIN books ON borrowings.book_id = books.id"
                          " WHERE borrowings.user_id = ?", (userid,))
-        return self.cur.fetchone()
+        return self.cur.fetchall()
 
     def insert(self,user_id,book_id):
         borrowed=dt.today()
