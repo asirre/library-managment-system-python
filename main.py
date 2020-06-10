@@ -173,11 +173,12 @@ class Main_Page:
     """Displaying available books and user's borrowed books"""
 
     def __init__(self, master, logged_userid):
-        self.users_list = Treeview(self.user_app, columns=BORROWINGS_COLUMNS, show='headings', height=10)
-        self.books_list = Treeview(self.user_app, columns=LIBRARY_COLUMNS, show='headings', height=10)
+
         self.user_app = master
         self.user_app.title('Library')
         self.user_app.geometry('850x350')
+        self.users_list = Treeview(self.user_app, columns=BORROWINGS_COLUMNS, show='headings', height=10)
+        self.books_list = Treeview(self.user_app, columns=LIBRARY_COLUMNS, show='headings', height=10)
 
         self.logged_userid = logged_userid
         self.borrowed_books_counter = 0
