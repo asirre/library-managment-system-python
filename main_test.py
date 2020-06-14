@@ -1,6 +1,6 @@
+import tkinter as tk
 import unittest
 import main
-import tkinter as tk
 
 class RegistrationTest(unittest.TestCase):
     """Testing registration panel """
