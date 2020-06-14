@@ -1,7 +1,6 @@
+from datetime import date as dt
 import unittest
 import database
-from datetime import date as dt
-
 
 class DatabaseTest(unittest.TestCase):
     """Testing some of database functions"""
